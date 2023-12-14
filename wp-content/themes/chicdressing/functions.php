@@ -7,7 +7,14 @@ function chicdressing_enqueue_styles() {
 
 add_filter( 'big_image_size_threshold', '__return_false' );
 
+// Remove Google Fonts
+// font kalam
+function remove_google_fonts() {
+    wp_deregister_style( 'ashe-kalam-font' );
+    wp_deregister_style( 'ashe-opensans-font' );
+    wp_deregister_style( 'ashe-playfair-font' );
+    wp_deregister_style( 'ashe-rokkit-font' );
+   }
+   add_action('wp_print_styles', 'remove_google_fonts' );
+?>
 
-
-
- 
