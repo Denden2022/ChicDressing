@@ -49,7 +49,6 @@ class FeatureGating {
 	public function load_flag() {
 		if ( 0 === $this->flag ) {
 			$default_flag = defined( 'WC_BLOCKS_IS_FEATURE_PLUGIN' ) ? self::FEATURE_PLUGIN_FLAG : self::CORE_FLAG;
-
 			if ( file_exists( __DIR__ . '/../../../blocks.ini' ) ) {
 				$allowed_flags = [ self::EXPERIMENTAL_FLAG, self::FEATURE_PLUGIN_FLAG, self::CORE_FLAG ];
 				$woo_options   = parse_ini_file( __DIR__ . '/../../../blocks.ini' );
@@ -102,11 +101,11 @@ class FeatureGating {
 		return $this->flag >= self::FEATURE_PLUGIN_FLAG;
 	}
 
-		/**
-		 * Returns the current environment value.
-		 *
-		 * @return string
-		 */
+	/**
+	 * Returns the current environment value.
+	 *
+	 * @return string
+	 */
 	public function get_environment() {
 		return $this->environment;
 	}
@@ -163,6 +162,20 @@ class FeatureGating {
 	 */
 	public static function get_experimental_flag() {
 		return self::EXPERIMENTAL_FLAG;
+	}
+
+
+	/**
+	 * Check if the block templates controller refactor should be used to display blocks.
+	 *
+	 * @return boolean
+	 */
+	public function is_block_templates_controller_refactor_enabled() {
+		if ( file_exists( __DIR__ . '/../../../blocks.ini' ) ) {
+			$conf = parse_ini_file( __DIR__ . '/../../../blocks.ini' );
+			return $this->is_development_environment() && isset( $conf['use_block_templates_controller_refactor'] ) && true === (bool) $conf['use_block_templates_controller_refactor'];
+		}
+		return false;
 	}
 
 }

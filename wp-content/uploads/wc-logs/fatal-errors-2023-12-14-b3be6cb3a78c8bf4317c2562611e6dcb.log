@@ -1,4 +1,4 @@
-2023-12-14T17:01:58+00:00 CRITICAL Uncaught TypeError: implode(): Argument #2 ($array) must be of type ?array, string given in C:\MAMP\htdocs\chic_dressing\wp-content\plugins\wysija-newsletters\helpers\file.php:161
+2023-12-14T17:42:14+00:00 CRITICAL Uncaught TypeError: implode(): Argument #2 ($array) must be of type ?array, string given in C:\MAMP\htdocs\chic_dressing\wp-content\plugins\wysija-newsletters\helpers\file.php:161
 Stack trace:
 #0 C:\MAMP\htdocs\chic_dressing\wp-content\plugins\wysija-newsletters\helpers\file.php(161): implode(Array, '|')
 #1 C:\MAMP\htdocs\chic_dressing\wp-content\plugins\wysija-newsletters\core\base.php(820): WYSIJA_help_file->clear()

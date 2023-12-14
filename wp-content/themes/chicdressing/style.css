@@ -15,14 +15,14 @@ Text Domain:	 chicdressing
 */
 
 
-body .page-content, .page-content select, .page-content input, .page-content textarea, .page-content .post-author a, .page-content .ashe-widget a, .page-content .comment-author {
-    color: #a5a5a5;
-    font-size: 12px;
+body .page-content, .page-content select, .page-content input, .page-content textarea, .page-content .post-author a, .page-content .ashe-widget a, .page-content .comment-author * {
+    color: black;
+    font-size: 18px;
 }
 
 
 body .header-logo a{
-    color: white;
+    color: #ffffffdf;
     text-shadow: 2px 3px 5px #d0527a;
     transform: rotate(-9deg);
 }
@@ -61,9 +61,66 @@ body .header-logo a{
     line-height: 48px;
 }
 #chic-products ul.products li.product{
-    background: #f6f6f6;
+    border: #9d4c64 solid;
     padding-bottom: 20px;
+    height: 498px;  
 }
+#chic-products ul.products li.product .button {
+  color: #9d4c64;
+  border: solid 4px;
+  opacity: 1;
+  background-color: #edc8c8e8;
+}
+#chic-products ul.products li.product h2 {
+  font-size: 20px;
+  font-weight: bolder;
+}
+#main ul.products li.product a {
+  color: #9d4c64;
+  opacity: 2;
+  background-color: #f5f5f5e8;
+}
+#main ul.products li.product .button {
+  border: #9d4c64 solid 4px;
+  color: #9d4c64;
+  opacity: 2;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+#main ul.products li.product {
+  border: #9d4c64 solid;
+  font-size: 16px;
+  height: 550px;
+  padding-bottom: 5px;
+}
+.main-container .read-more a {
+  border: #9d4c64 solid;
+  color: #9d4c64;
+}
+.main-container .post-header .post-meta .post-date {
+  color: black;
+  font-size: 26px;
+}
+.main-container .post-header .post-categories a {
+  color: #9d4c64;
+  font-size: 26px;
+  padding-left: 10px;
+  margin: 8px 0 8px 0;
+}
+.sidebar-right .rpwwt-post-categories {
+  font-size: 16px;
+  color: black;
+}
+.sidebar-right .widget-title a {
+  font-size: 16px;
+  color: black;
+}
+#main-menu li a {
+  font-size: 20px;
+  opacity: 2;
+}
+
 
 /* kalam-regular - latin */
 @font-face {

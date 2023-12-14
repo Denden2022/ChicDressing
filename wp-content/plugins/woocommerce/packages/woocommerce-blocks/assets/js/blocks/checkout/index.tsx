@@ -4,8 +4,8 @@
 import classnames from 'classnames';
 import { fields } from '@woocommerce/icons';
 import { Icon } from '@wordpress/icons';
-import { registerFeaturePluginBlockType } from '@woocommerce/block-settings';
-import { BlockInstance, createBlock } from '@wordpress/blocks';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
+import type { BlockInstance } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -31,6 +31,24 @@ const settings = {
 	},
 	edit: Edit,
 	save: Save,
+	transforms: {
+		to: [
+			{
+				type: 'block',
+				blocks: [ 'woocommerce/classic-shortcode' ],
+				transform: ( attributes ) => {
+					return createBlock(
+						'woocommerce/classic-shortcode',
+						{
+							shortcode: 'checkout',
+							align: attributes.align,
+						},
+						[]
+					);
+				},
+			},
+		],
+	},
 	// Migrates v1 to v2 checkout.
 	deprecated: [
 		{
@@ -139,4 +157,4 @@ const settings = {
 	],
 };
 
-registerFeaturePluginBlockType( metadata, settings );
+registerBlockType( metadata, settings );

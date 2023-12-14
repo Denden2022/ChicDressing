@@ -5,7 +5,7 @@ import { COLLECTIONS_STORE_KEY as storeKey } from '@woocommerce/block-data';
 import { useSelect } from '@wordpress/data';
 import { useRef } from '@wordpress/element';
 import { useShallowEqual, useThrowError } from '@woocommerce/base-hooks';
-import { isError, Query } from '@woocommerce/types';
+import { isError } from '@woocommerce/types';
 
 /**
  * This is a custom hook that is wired up to the `wc/store/collections` data
@@ -15,24 +15,24 @@ import { isError, Query } from '@woocommerce/types';
  * @throws {Object} Throws an exception object if there was a problem with the
  * 					API request, to be picked up by BlockErrorBoundry.
  *
- * @param {Object} options                  An object declaring the various
- *                                          collection arguments.
- * @param {string} options.namespace        The namespace for the collection.
- *                                          Example: `'/wc/blocks'`
- * @param {string} options.resourceName     The name of the resource for the
- *                                          collection. Example:
- *                                          `'products/attributes'`
- * @param {Array}  [options.resourceValues] An array of values (in correct order)
- *                                          that are substituted in the route
- *                                          placeholders for the collection route.
- *                                          Example: `[10, 20]`
- * @param {Object} [options.query]          An object of key value pairs for the
- *                                          query to execute on the collection
- *                                          Example:
- *                                         `{ order: 'ASC', order_by: 'price' }`
- * @param {boolean} [options.shouldSelect]  If false, the previous results will be
- *                                          returned and internal selects will not
- *                                          fire.
+ * @param {Object}  options                  An object declaring the various
+ *                                           collection arguments.
+ * @param {string}  options.namespace        The namespace for the collection.
+ *                                           Example: `'/wc/blocks'`
+ * @param {string}  options.resourceName     The name of the resource for the
+ *                                           collection. Example:
+ *                                           `'products/attributes'`
+ * @param {Array}   [options.resourceValues] An array of values (in correct order)
+ *                                           that are substituted in the route
+ *                                           placeholders for the collection route.
+ *                                           Example: `[10, 20]`
+ * @param {Object}  [options.query]          An object of key value pairs for the
+ *                                           query to execute on the collection
+ *                                           Example:
+ *                                           `{ order: 'ASC', order_by: 'price' }`
+ * @param {boolean} [options.shouldSelect]   If false, the previous results will be
+ *                                           returned and internal selects will not
+ *                                           fire.
  *
  * @return {Object} This hook will return an object with two properties:
  *                  - results   An array of collection items returned.
@@ -44,14 +44,15 @@ export interface useCollectionOptions {
 	namespace: string;
 	resourceName: string;
 	resourceValues?: number[];
-	query: Query;
+	query?: Record< string, unknown >;
 	shouldSelect?: boolean;
+	isEditor?: boolean;
 }
 
-export const useCollection = (
+export const useCollection = < T >(
 	options: useCollectionOptions
 ): {
-	results: unknown;
+	results: T[];
 	isLoading: boolean;
 } => {
 	const {
@@ -67,7 +68,7 @@ export const useCollection = (
 				'the resource properties.'
 		);
 	}
-	const currentResults = useRef< { results: unknown; isLoading: boolean } >( {
+	const currentResults = useRef< { results: T[]; isLoading: boolean } >( {
 		results: [],
 		isLoading: true,
 	} );
@@ -80,6 +81,7 @@ export const useCollection = (
 			if ( ! shouldSelect ) {
 				return null;
 			}
+
 			const store = select( storeKey );
 			const args = [
 				namespace,
@@ -100,7 +102,7 @@ export const useCollection = (
 			}
 
 			return {
-				results: store.getCollection< T >( ...args ),
+				results: store.getCollection< T[] >( ...args ),
 				isLoading: ! store.hasFinishedResolution(
 					'getCollection',
 					args

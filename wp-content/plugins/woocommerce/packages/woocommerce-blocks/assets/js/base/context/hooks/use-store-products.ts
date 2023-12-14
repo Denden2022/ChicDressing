@@ -13,9 +13,9 @@ import { useCollectionHeader, useCollection } from './collections';
  * will ensure a component is kept up to date with the products matching that
  * query in the store state.
  *
- * @param {Object} query   An object containing any query arguments to be
- *                         included with the collection request for the
- *                         products. Does not have to be included.
+ * @param {Object} query An object containing any query arguments to be
+ *                       included with the collection request for the
+ *                       products. Does not have to be included.
  *
  * @return {Object} This hook will return an object with three properties:
  *                  - products        An array of product objects.
@@ -35,16 +35,17 @@ export const useStoreProducts = (
 		namespace: '/wc/store/v1',
 		resourceName: 'products',
 	};
-	const { results: products, isLoading: productsLoading } = useCollection( {
-		...collectionOptions,
-		query,
-	} );
+	const { results: products, isLoading: productsLoading } =
+		useCollection< ProductResponseItem >( {
+			...collectionOptions,
+			query,
+		} );
 	const { value: totalProducts } = useCollectionHeader( 'x-wp-total', {
 		...collectionOptions,
 		query,
 	} );
 	return {
-		products: products as ProductResponseItem[], // TODO: Remove this once getCollection selector and resolver is converted to TS.
+		products,
 		totalProducts: parseInt( totalProducts as string, 10 ),
 		productsLoading,
 	};

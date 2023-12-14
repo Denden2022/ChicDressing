@@ -7,14 +7,12 @@ import classnames from 'classnames';
  * Internal dependencies
  */
 import { createSlotFill, hasValidFills, useSlot } from '../../slot';
-import TotalsWrapper from '../totals-wrapper';
+import TotalsWrapper from '../../../components/totals-wrapper';
 
 const slotName = '__experimentalDiscountsMeta';
 
-const {
-	Fill: ExperimentalDiscountsMeta,
-	Slot: DiscountsMetaSlot,
-} = createSlotFill( slotName );
+const { Fill: ExperimentalDiscountsMeta, Slot: DiscountsMetaSlot } =
+	createSlotFill( slotName );
 
 const Slot = ( { className, extensions, cart, context } ) => {
 	const { fills } = useSlot( slotName );
